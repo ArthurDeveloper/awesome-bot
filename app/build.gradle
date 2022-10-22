@@ -11,20 +11,15 @@ plugins {
     id 'application'
 }
 
+sourceCompatibility = 1.8
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
-	jcenter()
 }
 
 dependencies {
-    // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:29.0-jre'
-
-	compile 'net.dv8tion:JDA:3.5.0_329'
+	compile 'net.dv8tion:JDA:5.0.0-alpha.21'
 }
 
 application {

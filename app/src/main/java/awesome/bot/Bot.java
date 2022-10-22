@@ -1,7 +1,7 @@
 package awesome.bot;
 
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 
@@ -11,16 +11,13 @@ import java.nio.file.Path;
 
 public class Bot {
     public static void main(String[] args) throws LoginException, IOException {
-        JDABuilder builder = new JDABuilder(AccountType.BOT);
-
-		Path tokenFilePath = Path.of("token.txt");
+		Path tokenFilePath = Path.of(".\\token.txt");
 		String token = Files.readString(tokenFilePath);
 		token = token.replaceAll("\\x0d", " ").trim();
 
-		System.out.println(token);
-		
-		builder.setToken(token);
-		builder.buildAsync();
+		JDABuilder builder = JDABuilder.createDefault(token);
+
+		builder.build();
 
 		System.out.println("Bot's working!");
     }
