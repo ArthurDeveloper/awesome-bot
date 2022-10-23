@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Bot extends ListenerAdapter {
+	private String prefix = "#";
+
     public static void main(String[] args) throws LoginException, IOException {
 		Path tokenFilePath = Path.of("token.txt");
 		String token = Files.readString(tokenFilePath);
@@ -44,7 +46,23 @@ public class Bot extends ListenerAdapter {
 		System.out.printf("%s sent: %s\n", author.getName(), content);
 
 		if (!author.isBot()) {
-			message.reply("Hello!").queue();
+			try {
+				if (message.getMentions().getUsers().get(0).getName().equals("AwesomeBot")) {
+					message.reply("My prefix here is "+prefix).queue();
+				}
+			} catch (IndexOutOfBoundsException e) {}
+
+			if (content.equals(this.prefix+"ping")) {
+				message.reply("Pong!").queue();
+			} else if (content.equals(this.prefix+"hello")) {
+				message.reply("Hello!").queue();
+			} else if (content.equals(this.prefix+"greet")) {
+				message.reply("Have a nice day!").queue();
+			} else if (content.equals(this.prefix+"thank")) {
+				message.reply("You're welcome!").queue();
+			} else if (content.equals(this.prefix+"whoareyou")) {
+				message.reply("I am awesome bot, a bot filled to the brim with awesomeness!").queue();
+			}
 		}
 	}
 }
