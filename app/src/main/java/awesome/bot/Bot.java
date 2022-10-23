@@ -5,7 +5,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.User;
 
 import javax.security.auth.login.LoginException;
 
@@ -35,6 +37,14 @@ public class Bot extends ListenerAdapter {
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
-		System.out.printf("%s sent: %s\n", event.getAuthor().getName(), event.getMessage().getContentDisplay());
+		Message message = event.getMessage();
+
+		User author = message.getAuthor();
+		String content = message.getContentDisplay();
+		System.out.printf("%s sent: %s\n", author.getName(), content);
+
+		if (!author.isBot()) {
+			message.reply("Hello!").queue();
+		}
 	}
 }
